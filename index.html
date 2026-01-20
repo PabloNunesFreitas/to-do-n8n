@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>To-Do Clientes</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <div class="app">
+      <header class="topbar">
+        <div>
+          <h1>To-Do de Clientes</h1>
+          <p class="subtitle">Organize tarefas por pasta e acompanhe todas as alterações.</p>
+        </div>
+        <div class="user-info" id="userInfo"></div>
+        <button class="create-folder hidden" id="createFolderBtn" type="button">
+          Criar pasta
+        </button>
+      </header>
+
+      <main>
+        <section class="card login" id="loginCard">
+          <h2>Entrar</h2>
+          <p>Crie seu espaço para gerenciar as tarefas de cada cliente.</p>
+          <form id="loginForm">
+            <label>
+              Nome
+              <input type="text" name="name" placeholder="Seu nome" required />
+            </label>
+            <label>
+              Email
+              <input type="email" name="email" placeholder="voce@email.com" required />
+            </label>
+            <button type="submit">Acessar</button>
+          </form>
+        </section>
+
+        <section class="dashboard" id="dashboard">
+          <aside class="sidebar">
+            <div class="card">
+              <h3>Pastas de clientes</h3>
+              <ul class="client-list" id="clientList"></ul>
+            </div>
+          </aside>
+
+          <section class="content">
+            <div class="card empty-state hidden" id="emptyState">
+              <h2>Nenhuma pasta criada</h2>
+              <p class="muted">
+                Crie sua primeira pasta para começar a organizar as missões do cliente.
+              </p>
+              <button type="button" id="emptyCreateBtn">Criar pasta</button>
+            </div>
+            <div class="card" id="clientDetails">
+              <div class="client-header">
+                <h2 id="clientTitle">Selecione um cliente</h2>
+                <span id="clientDueIndicator" class="due-indicator hidden" aria-label="Prazo próximo"></span>
+              </div>
+              <p id="clientNotes" class="muted">
+                Crie ou escolha uma pasta para visualizar as tarefas detalhadas.
+              </p>
+            </div>
+
+            <div class="card hidden" id="clientWorkspace">
+              <div class="workspace-header">
+                <div>
+                  <h3>Missões do cliente</h3>
+                  <p class="muted">Arraste as missões entre as colunas para atualizar o status.</p>
+                </div>
+                <span id="taskCounter" class="pill">0</span>
+              </div>
+              <form id="taskForm" class="stack">
+                <input
+                  type="text"
+                  name="taskTitle"
+                  placeholder="Título da missão"
+                  required
+                />
+                <textarea
+                  name="taskDetails"
+                  placeholder="Detalhes do que precisa ser ajustado"
+                  rows="3"
+                  required
+                ></textarea>
+                <div class="row">
+                  <select name="taskPriority">
+                    <option value="Alta">Prioridade: Alta</option>
+                    <option value="Média" selected>Prioridade: Média</option>
+                    <option value="Baixa">Prioridade: Baixa</option>
+                  </select>
+                  <input type="date" name="taskDue" />
+                </div>
+                <button type="submit">Adicionar missão</button>
+              </form>
+              <div class="board">
+                <div class="board-column" data-status="A Fazer">
+                  <h4>A Fazer</h4>
+                  <div class="task-list" id="todoList"></div>
+                </div>
+                <div class="board-column" data-status="Em Andamento">
+                  <h4>Em Andamento</h4>
+                  <div class="task-list" id="progressList"></div>
+                </div>
+                <div class="board-column" data-status="Finalizada">
+                  <h4>Finalizada</h4>
+                  <div class="task-list" id="doneList"></div>
+                </div>
+              </div>
+            </div>
+          </section>
+        </section>
+      </main>
+    </div>
+
+    <template id="taskTemplate">
+      <article class="task">
+        <header>
+          <div>
+            <h4 class="task-title"></h4>
+            <p class="task-meta"></p>
+          </div>
+          <span class="status"></span>
+        </header>
+        <p class="task-details"></p>
+        <div class="task-updates"></div>
+        <div class="task-actions">
+          <button type="button" class="toggle">Marcar como concluída</button>
+          <button type="button" class="log">Ver histórico</button>
+          <button type="button" class="update">Atualizar chamado</button>
+          <button type="button" class="delete">Excluir missão</button>
+        </div>
+        <div class="task-log"></div>
+      </article>
+    </template>
+
+    <script src="app.js"></script>
+  </body>
+</html>
